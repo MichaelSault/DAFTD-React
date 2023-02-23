@@ -18,7 +18,7 @@ app.post('/getFeed', async(req, res) => {
     res.send(result.recordset[0]); //sending objects are easier on the front end
 });
 
-app.post('/feedInput', async(req, res) => { 
+app.post('/setFeed', async(req, res) => { 
     await dbOperation.setFeedTime(req.body);
     const result = await dbOperation.setFeedTime(req.body);
     //console.log('called feedInput');
