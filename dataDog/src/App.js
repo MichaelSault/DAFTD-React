@@ -8,13 +8,13 @@ var FedDate = Date();
 var ThisDog = "Milli";
 
 
-
-
 function App() {
-  const [dog, setDog] = useState({DogID: 0, Name: '', FeedTime: ''})
+  const [dog, setDog] = useState({DogID: 0, Name: '', FeedTime: FedDate})
 
   const feedTheDog = async () => {
-    const newData = await fetch('http://localhost:5000/setFeedTime', {
+    //var FedDate = Date();
+    //setDog(1, "Milli", FedDate);
+    const newData = await fetch('http://localhost:5000/setFeed', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

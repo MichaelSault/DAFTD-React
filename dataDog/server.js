@@ -21,7 +21,7 @@ app.post('/getFeed', async(req, res) => {
 app.post('/setFeed', async(req, res) => { 
     await dbOperation.setFeedTime(req.body);
     const result = await dbOperation.setFeedTime(req.body);
-    //console.log('called feedInput');
+    console.log(result);
 });
 
 app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));
