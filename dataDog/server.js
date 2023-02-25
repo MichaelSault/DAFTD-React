@@ -19,7 +19,7 @@ app.post('/getFeed', async(req, res) => {
 });
 
 app.post('/setFeed', async(req, res) => { 
-    await dbOperation.setFeedTime(req.body);
+    //await dbOperation.setFeedTime(req.body);
     const result = await dbOperation.setFeedTime(req.body);
     console.log(result);
 });

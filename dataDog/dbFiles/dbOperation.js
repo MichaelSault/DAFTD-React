@@ -5,7 +5,7 @@ const config = require('./dbConfig'),
 const getFeedTime = async(DogInfo) => {
     try {
         let pool = await sql.connect(config);
-        let feedTime = await pool.request().query(`SELECT * from GoodBoys WHERE DogID = '${DogInfo.ID}'`);
+        let feedTime = await pool.request().query(`SELECT * from GoodBoys WHERE DogID = 1`);
         console.log("Value returned by query:")
         console.log(feedTime);
         return feedTime;
