@@ -30,7 +30,21 @@ const setFeedTime = async(DogInfo) => {
     }
 }
 
+const updateFeedTime = async(DogInfo) => {
+    console.log(DogInfo.FeedTime);
+    try {
+        let pool = await sql.connect(config);
+        let feedTime = await pool.request().query(`UPDATE GoodBoys SET FeedTime = '${DogInfo.FeedTime}' WHERE DogID = 1`);
+        console.log(DogInfo.FeedTime);
+        return feedTime;
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     getFeedTime,
-    setFeedTime
+    setFeedTime,
+    updateFeedTime
 }

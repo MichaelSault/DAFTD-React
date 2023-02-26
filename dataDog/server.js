@@ -14,13 +14,13 @@ app.use(cors());
 
 app.post('/getFeed', async(req, res) => {
     const result = await dbOperation.getFeedTime(req.body);
-    //console.log(result.recordset[0]);
+    console.log(result.recordset[0]);
     res.send(result.recordset[0]); //sending objects are easier on the front end
 });
 
 app.post('/setFeed', async(req, res) => { 
     //await dbOperation.setFeedTime(req.body);
-    const result = await dbOperation.setFeedTime(req.body);
+    const result = await dbOperation.updateFeedTime(req.body);
     console.log(result);
 });
 
