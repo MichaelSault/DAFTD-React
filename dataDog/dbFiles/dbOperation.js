@@ -6,8 +6,8 @@ const getFeedTime = async(DogInfo) => {
     try {
         let pool = await sql.connect(config);
         let feedTime = await pool.request().query(`SELECT * from GoodBoys WHERE DogID = 1`);
-        console.log("Value returned by query:")
-        console.log(feedTime);
+        //console.log("Value returned by query:")
+        //console.log(feedTime);
         return feedTime;
     }
     catch(error) {
@@ -15,27 +15,30 @@ const getFeedTime = async(DogInfo) => {
     }
 }
 
-const setFeedTime = async(DogInfo) => {
+/* const setFeedTime = async(DogInfo) => {
+    let FeedTime = Date();
     console.log(DogInfo);
     try {
         let pool = await sql.connect(config);
         let feedTime = await pool.request().query(`INSERT INTO GoodBoys(DogID, Name, FeedTime) VALUES (
             1, 'Milli', '${DogInfo.FeedTime}'
         )`);
+        console.log("What is the feed time?");
         console.log(DogInfo.FeedTime);
         return feedTime;
     }
     catch(error) {
         console.log(error);
     }
-}
+} */
 
 const updateFeedTime = async(DogInfo) => {
-    console.log(DogInfo.FeedTime);
+    let FeedTime = Date();
     try {
         let pool = await sql.connect(config);
-        let feedTime = await pool.request().query(`UPDATE GoodBoys SET FeedTime = '${DogInfo.FeedTime}' WHERE DogID = 1`);
-        console.log(DogInfo.FeedTime);
+        let feedTime = await pool.request().query(`UPDATE GoodBoys SET FeedTime = '${FeedTime}' WHERE DogID = 1`);
+        console.log("What is the feed time?");
+        console.log(FeedTime);
         return feedTime;
     }
     catch(error) {
@@ -45,6 +48,6 @@ const updateFeedTime = async(DogInfo) => {
 
 module.exports = {
     getFeedTime,
-    setFeedTime,
+    //setFeedTime,
     updateFeedTime
 }

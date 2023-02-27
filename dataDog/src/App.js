@@ -3,16 +3,11 @@ import {useState, useEffect} from 'react';
 
 import './App.css';
 
-//require("./database/database").connect()
-var FedDate = Date();
-var ThisDog = "Milli";
-
-
 function App() {
-  const [dog, setDog] = useState({DogID: 1, Name: ThisDog, FeedTime: FedDate})
+  const [dog, setDog] = useState({DogID: 1, Name: "", FeedTime: ""})
 
   useEffect(() => {
-    //getTheDog();
+    getTheDog();
   }, []);
 
   const getTheDog = async () => {
@@ -28,14 +23,12 @@ function App() {
     })
     .then(res => res.json());
     console.log(newData);
-    setDog(newData[0]);
+    setDog(newData);
     console.log(dog);
   }
 
   const feedTheDog = async () => {
-    //var FedDate = Date();
-    setDog(1, "Milli", Date());
-    console.log(dog);
+    
     const newData = await fetch('http://localhost:5000/setFeed', {
       method: 'POST',
       headers: {
@@ -47,19 +40,19 @@ function App() {
       })
     })
     .then(res => res.json());
-    console.log(newData);
+    console.log(newData); 
+    getTheDog(); //why does this never trigger??
   }
 
 
   return (
-    
     <div className="App">
       <header className="App-header">
         <img src="Aussie.png" className="App-logo" alt="logo" />
         <p>
-          {ThisDog} was last fed at {FedDate}
+          {dog.Name} was last fed at {dog.FeedTime}
         </p>
-        
+        <Button onClick={() => getTheDog()}>When Was The Dog Fed?</Button>
         <p>
           Did You Feed The Dog?
         </p>
