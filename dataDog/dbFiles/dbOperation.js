@@ -1,4 +1,4 @@
-const { Train } = require('@mui/icons-material');
+const { Train, Feed } = require('@mui/icons-material');
 const config = require('./dbConfig'),
     sql = require('mssql');
 
@@ -34,6 +34,8 @@ const getFeedTime = async(DogInfo) => {
 
 const updateFeedTime = async(DogInfo) => {
     let FeedTime = Date();
+    let FeedDateValue = new Date().getTime();
+    console.log(FeedDateValue);
     try {
         let pool = await sql.connect(config);
         let feedTime = await pool.request().query(`UPDATE GoodBoys SET FeedTime = '${FeedTime}' WHERE DogID = 1`);

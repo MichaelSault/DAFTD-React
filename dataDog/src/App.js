@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react';
 import './App.css';
 
 function App() {
-  const [dog, setDog] = useState({DogID: 1, Name: "", FeedTime: ""})
+  const [dog, setDog] = useState({DogID: 1, Name: "", FeedTime: ""});
 
   useEffect(() => {
     getTheDog();
@@ -40,8 +40,15 @@ function App() {
       })
     })
     .then(res => res.json());
-    console.log(newData); 
-    getTheDog(); //why does this never trigger??
+  }
+
+  const dogFeeder = async () => {
+    console.log("Feeding Dog");
+    feedTheDog();
+    console.log("Dog Fed, Updating Time");
+    setTimeout(1000, getTheDog());
+    console.log("Time Updated");
+    console.log(dog.FeedTime.toLocaleString('en-US', { timeZone: 'America/New_York' }));
   }
 
 
@@ -56,7 +63,7 @@ function App() {
         <p>
           Did You Feed The Dog?
         </p>
-        <Button onClick={() => feedTheDog()}>I Fed The Dog!</Button>
+        <Button onClick={() => dogFeeder()}>I Fed The Dog!</Button>
       </header>
     </div>
   );
