@@ -15,13 +15,18 @@ app.use(cors());
 app.post('/getFeed', async(req, res) => {
     const result = await dbOperation.getFeedTime(req.body);
     console.log(result.recordset[0]);
-    res.send(result.recordset[0]); //sending objects are easier on the front end
+    res.send(result.recordset[0]);
 });
 
 app.post('/setFeed', async(req, res) => { 
     //await dbOperation.setFeedTime(req.body);
     const result = await dbOperation.updateFeedTime(req.body);
     console.log(result);
+});
+
+app.post('/login', async(req, res) => {
+    const result = await dbOperation.getOwnerProfile(req.body);
+    res.send(result.recordset[0]);
 });
 
 app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));

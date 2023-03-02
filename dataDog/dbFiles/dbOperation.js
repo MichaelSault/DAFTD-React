@@ -48,8 +48,23 @@ const updateFeedTime = async(DogInfo) => {
     }
 }
 
+const getOwnerProfile = async(OwnerProfile) => {
+    try {
+        let pool = await sql.connect(config);
+        console.log(OwnerProfile);
+        let owner = await pool.request().query(`SELECT * from Owners WHERE Email = '${OwnerProfile.Email}' AND Password = '${OwnerProfile.Password}'`);
+        console.log("Value returned by query:")
+        console.log(owner);
+        return owner;
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     getFeedTime,
+    getOwnerProfile,
     //setFeedTime,
     updateFeedTime
 }

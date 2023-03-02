@@ -22,8 +22,8 @@ const darkTheme = createTheme({
 });
 
 export default function Login() {
-  /* const [returnedData, setReturnedData] = useState({TrainerID: 0, TrainerName: '', Email: '', Firstname: '', Lastname: '', Password: ''});
-  const [trainer, setTrainer] = useState({Email: '', Password: ''})
+  const [returnedData, setReturnedData] = useState({OwnerID: 0, Name: '', Email: '', Password: ''});
+  const [owner, setOwner] = useState({Email: '', Password: ''})
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,16 +35,17 @@ export default function Login() {
     });
   };
 
-  const fetchTrainerData = async () => {
+  const fetchOwnerData = async () => {
     
-    const newData = await fetch('http://localhost:5000/api', {
+    const newData = await fetch('http://localhost:5000/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        Email: trainer.Email
+        Email: owner.Email,
+        Password: owner.Password
       })
     })
     .then(res => res.json());
@@ -57,18 +58,18 @@ export default function Login() {
   const setInput = (e) => {
     const {name, value} = e.target;
     console.log(value);
-    if (name === 'TrainerID'){
-      setTrainer(prevState => ({
+    if (name === 'OwnerID'){
+      setOwner(prevState => ({
         ...prevState,
         [name]: parseInt(value)
       }));
       return;
     }
-    setTrainer(prevState => ({
+    setOwner(prevState => ({
       ...prevState,
       [name]: value
     }));
-  } */
+  }
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -104,7 +105,7 @@ export default function Login() {
             <Typography component="h1" variant="h5">
               Log In
             </Typography>
-            <Box component="form" noValidate /* onSubmit={handleSubmit} */ sx={{ mt: 1 }}>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -113,7 +114,7 @@ export default function Login() {
                 label="Email Address"
                 name="Email"
                 autoComplete="email"
-                //onChange={setInput}
+                onChange={setInput}
                 autoFocus
               />
               <TextField
@@ -125,7 +126,7 @@ export default function Login() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                //onChange={setInput}
+                onChange={setInput}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -136,20 +137,20 @@ export default function Login() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                //onClick={() => fetchTrainerData()}
+                onClick={() => fetchOwnerData()}
               >
                 Sign In
               </Button>
               <Grid container>
                 <Grid item xs>
-                  {/* <Link href="#" variant="body2">
+                  {<Link href="#" variant="body2">
                     Forgot password?
-                  </Link> */}
+                  </Link>}
                 </Grid>
                 <Grid item>
-                 {/*  <Link href="SignUp" variant="body2">
+                 {<Link href="SignUp" variant="body2">
                     {"Don't have an account? Sign Up"}
-                  </Link> */}
+                  </Link>}
                 </Grid>
               </Grid>
             </Box>
