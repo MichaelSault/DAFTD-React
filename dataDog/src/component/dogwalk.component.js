@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
-import Button from 'react-bootstrap/Button';
 import '../App.css';
+import Button from '@mui/material/Button';
 
 
 export default function DogWalk() {
@@ -59,11 +59,25 @@ export default function DogWalk() {
             <p>
             {dog.Name} was last fed at {dog.FeedTime}
             </p>
-            <Button onClick={() => getTheDog()}>When Was The Dog Fed?</Button>
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={() => getTheDog()}
+            >
+              When Was The Dog Fed?
+            </Button>
             <p>
             Did You Feed The Dog?
             </p>
-            <Button onClick={() => dogFeeder()}>I Fed The Dog!</Button>
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={() => dogFeeder()}
+            >
+              I Fed The Dog!
+            </Button>
         </header>
         </div>
     );
