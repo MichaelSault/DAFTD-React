@@ -2,6 +2,19 @@ const { Train, Feed } = require('@mui/icons-material');
 const config = require('./dbConfig'),
     sql = require('mssql');
 
+
+const addDog = async(DogInfo) => {
+    try {
+        let pool = await sql.connect(config);
+        let dogBio = await pool.request().query(`INSERT INTO GoodBoys(Name) VALUES ('${DogInfo.Name}')`);
+        console.log(dogBio.DogID);
+        return dogBio;
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+
 const getFeedTime = async(DogInfo) => {
     try {
         let pool = await sql.connect(config);
@@ -9,6 +22,32 @@ const getFeedTime = async(DogInfo) => {
         //console.log("Value returned by query:")
         //console.log(feedTime);
         return feedTime;
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+
+const getOwnerProfile = async(OwnerProfile) => {
+    try {
+        let pool = await sql.connect(config);
+        console.log(OwnerProfile);
+        let owner = await pool.request().query(`SELECT * from Owners WHERE Email = '${OwnerProfile.Email}' AND Password = '${OwnerProfile.Password}'`);
+        console.log("Value returned by query:")
+        console.log(owner);
+        return owner;
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+
+const linkDog = async(DogInfo) => {
+    try {
+        let pool = await sql.connect(config);
+        let dogBio = await pool.request().query(`INSERT INTO OwnerDogLinks(OwnerID, DogID) VALUES ('${DogInfo.OwnerID}', '${DogInfo.DogID}')`);
+        console.log(dogBio.DogID);
+        return dogBio;
     }
     catch(error) {
         console.log(error);
@@ -48,23 +87,12 @@ const updateFeedTime = async(DogInfo) => {
     }
 }
 
-const getOwnerProfile = async(OwnerProfile) => {
-    try {
-        let pool = await sql.connect(config);
-        console.log(OwnerProfile);
-        let owner = await pool.request().query(`SELECT * from Owners WHERE Email = '${OwnerProfile.Email}' AND Password = '${OwnerProfile.Password}'`);
-        console.log("Value returned by query:")
-        console.log(owner);
-        return owner;
-    }
-    catch(error) {
-        console.log(error);
-    }
-}
 
 module.exports = {
+    addDog,
     getFeedTime,
     getOwnerProfile,
+    linkDog,
     //setFeedTime,
     updateFeedTime
 }
