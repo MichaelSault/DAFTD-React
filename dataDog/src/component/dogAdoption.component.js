@@ -23,8 +23,8 @@ const darkTheme = createTheme({
 });
 
 export default function Adopt() {
-    const [returnedData, setReturnedData] = useState({DogID: 0, Name: ''});
-    const [dog, setDog] = useState({DogID: 0, Name: ''});
+    const [returnedData, setReturnedData] = useState({DogID: 0, Name: '', OwnerID: 1});
+    const [dog, setDog] = useState({DogID: 0, Name: '', OwnerID: 1});
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -51,7 +51,7 @@ export default function Adopt() {
   }
 
   const adoptDog = async () => {
-    const newData = await fetch('http://localhost:5000/hello', {
+    const newData = await fetch('http://localhost:5000/adopt', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -89,10 +89,10 @@ export default function Adopt() {
               <Grid item xs={12} sm={12}>
                 <TextField
                   autoComplete="dogName"
-                  name="dogName"
+                  name="Name"
                   required
                   fullWidth
-                  id="dogName"
+                  id="Name"
                   label="Dog Name"
                   onChange={setInput}
                   autoFocus

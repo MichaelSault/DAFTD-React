@@ -7,8 +7,9 @@ const addDog = async(DogInfo) => {
     try {
         let pool = await sql.connect(config);
         let dogBio = await pool.request().query(`INSERT INTO GoodBoys(Name) VALUES ('${DogInfo.Name}')`);
-        console.log(dogBio.DogID);
-        return dogBio;
+        let dogID = await pool.request().query(`SELECT dogID from GoodBoys WHERE Name = '${DogInfo.Name}' ORDER BY dogID DESC`);
+        console.log(dogID.recordset[0].dogID);
+        return parseInt(dogID.recordset[0].dogID);
     }
     catch(error) {
         console.log(error);
@@ -42,11 +43,12 @@ const getOwnerProfile = async(OwnerProfile) => {
     }
 }
 
-const linkDog = async(DogInfo) => {
+const linkDog = async(OwnerInfo, DogID) => {
+    console.log(OwnerInfo.OwnerID);
+    console.log(DogID);
     try {
         let pool = await sql.connect(config);
-        let dogBio = await pool.request().query(`INSERT INTO OwnerDogLinks(OwnerID, DogID) VALUES ('${DogInfo.OwnerID}', '${DogInfo.DogID}')`);
-        console.log(dogBio.DogID);
+        let dogBio = await pool.request().query(`INSERT INTO OwnerDogLinks(OwnerID, DogID) VALUES ('${OwnerInfo.OwnerID}', '${DogID}')`);
         return dogBio;
     }
     catch(error) {

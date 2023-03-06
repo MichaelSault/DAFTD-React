@@ -35,9 +35,10 @@ app.post('/signup', async(req, res) => {
 });
 
 app.post('/adopt', async(req, res) => {
+    console.log(req.body);
     const result = await dbOperation.addDog(req.body);
     console.log(result);
-    const result2 = await dbOperation.linkDog(result);
+    const result2 = await dbOperation.linkDog(req.body, result);
     console.log(result2);
 });
 
