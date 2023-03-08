@@ -4,7 +4,6 @@ import Login from './component/login.component';
 import SignUp from './component/signup.component';
 import Adopt from './component/dogAdoption.component';
 
-
 import './App.css';
 
 function App() {

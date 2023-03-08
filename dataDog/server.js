@@ -2,15 +2,58 @@ const express = require('express'),
     dbOperation = require('./dbFiles/dbOperation'),
     cors = require('cors');
 
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
+
 const API_PORT = process.env.PORT || 5000; 
 const app = express(); //starts the server
 
-//define variables for mongoDB
-let client;
-let session;
+//define one day in milliseconds
+const oneDay = 1000 * 60 * 60 * 24;
+
+//session middleware
+app.use(sessions({
+    secret: "mysecretkeyisasecretsodontaskshhhdsjadhajsdbakj", //will remove secret if I ever host publicly
+    saveUninitalized: true,
+    cookie: {maxAge: oneDay},
+    resave: false
+}));
+
+//parsing the incoming data
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(cors()); 
+app.use(express.urlencoded({ extended: true }));
+
+//serving public file
+app.use(express.static(__dirname));
+
+//cookie parser middleware
+app.use(cookieParser());
+
+//change these values to be set on initial login
+const myusername = '';
+const mypassword = '';
+
+//a variable to save a session
+var session;
+
+//checks if user is currently logged in
+app.post('/user',(req, res) => {
+    if(req.body.username == myusername && req.body.password == mypassword){
+        session = req.session;
+        session.userid = req.body.username;
+        console.log(req.session);
+        res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`);
+    }
+    else{
+        res.send('Invalid username or password');
+    }
+});
+
+//call to logout the user
+app.get('/logout',(req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
 
 app.post('/getFeed', async(req, res) => {
     const result = await dbOperation.getFeedTime(req.body);
@@ -19,7 +62,6 @@ app.post('/getFeed', async(req, res) => {
 });
 
 app.post('/setFeed', async(req, res) => { 
-    //await dbOperation.setFeedTime(req.body);
     const result = await dbOperation.updateFeedTime(req.body);
     console.log(result);
 });
