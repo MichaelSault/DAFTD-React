@@ -22,6 +22,7 @@ app.use(sessions({
 //parsing the incoming data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors()); 
 
 //serving public file
 app.use(express.static(__dirname));
@@ -29,25 +30,9 @@ app.use(express.static(__dirname));
 //cookie parser middleware
 app.use(cookieParser());
 
-//change these values to be set on initial login
-const myusername = '';
-const mypassword = '';
-
 //a variable to save a session
 var session;
 
-//checks if user is currently logged in
-app.post('/user',(req, res) => {
-    if(req.body.username == myusername && req.body.password == mypassword){
-        session = req.session;
-        session.userid = req.body.username;
-        console.log(req.session);
-        res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`);
-    }
-    else{
-        res.send('Invalid username or password');
-    }
-});
 
 //call to logout the user
 app.get('/logout',(req, res) => {
@@ -66,9 +51,18 @@ app.post('/setFeed', async(req, res) => {
     console.log(result);
 });
 
+
+//verifies login credentials and creates a cookie
 app.post('/login', async(req, res) => {
     const result = await dbOperation.getOwnerProfile(req.body);
-    res.send(result.recordset[0]);
+    if (result.recordset[0] != null){
+        session = req.session;
+        session.userid = result.recordset[0].Email;
+        console.log(result.recordset[0].Email);
+        res.send(result.recordset[0]);
+    } else {
+        console.log("No user found");
+    }
 });
 
 app.post('/signup', async(req, res) => {

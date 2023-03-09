@@ -35,7 +35,7 @@ export default function Login() {
     });
   };
 
-  const fetchOwnerData = async () => {
+  const ownerLogin = async () => {
     
     const newData = await fetch('http://localhost:5000/login', {
       method: 'POST',
@@ -137,7 +137,7 @@ export default function Login() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={() => fetchOwnerData()}
+                onClick={() => ownerLogin()}
               >
                 Sign In
               </Button>
