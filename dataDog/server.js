@@ -13,10 +13,11 @@ const oneDay = 1000 * 60 * 60 * 24;
 
 //session middleware
 app.use(sessions({
-    secret: "mysecretkeyisasecretsodontaskshhhdsjadhajsdbakj", //will remove secret if I ever host publicly
+    secret: "sneakydatadog", //will remove secret if I ever host publicly
     saveUninitalized: true,
     cookie: {maxAge: oneDay},
-    resave: false
+    resave: false,
+    path: '/login'
 }));
 
 //parsing the incoming data
@@ -57,9 +58,12 @@ app.post('/login', async(req, res) => {
     const result = await dbOperation.getOwnerProfile(req.body);
     if (result.recordset[0] != null){
         session = req.session;
-        session.userid = result.recordset[0].Email;
+        req.session.email = result.recordset[0].Email;
         console.log(result.recordset[0].Email);
-        res.send(result.recordset[0]);
+        res.cookie('email', result.recordset[0].Email);
+        
+        res.send(session);
+        console.log(session);
     } else {
         console.log("No user found");
     }
