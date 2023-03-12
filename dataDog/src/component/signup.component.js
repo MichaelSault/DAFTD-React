@@ -126,17 +126,6 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="trainerName"
-                  label="Trainer Name"
-                  name="trainerName"
-                  autoComplete="trainerName"
-                  onChange={setInput}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
                   name="password"
                   label="Password"
                   type="password"
