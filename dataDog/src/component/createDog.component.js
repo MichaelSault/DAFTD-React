@@ -22,8 +22,8 @@ const darkTheme = createTheme({
 });
 
 export default function CreateDog() {
-    const [returnedData, setReturnedData] = useState({DogID: 0, Name: '', Breed: '', AdoptDate: '', Age: ''});
-    const [dog, setDog] = useState({DogID: 0, Name: '', Breed: '', AdoptDate: '', Age: ''});
+    const [returnedData, setReturnedData] = useState({DogID: 0, Name: '', FeedTime: '', Breed: '', AdoptDate: '', Age: ''});
+    const [dog, setDog] = useState({DogID: 0, Name: '', FeedTime: '', Breed: '', AdoptDate: '', Age: ''});
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -103,7 +103,6 @@ export default function CreateDog() {
                 <TextField
                   autoComplete="dog-breed"
                   name="dogBreed"
-                  required
                   fullWidth
                   id="dogBreed"
                   label="Breed"
@@ -115,7 +114,6 @@ export default function CreateDog() {
                   <TextField
                     autoComplete="adopt-date"
                     name="adoptDate"
-                    required
                     fullWidth
                     id="adoptDate"
                     label="Adoption Date"
@@ -127,7 +125,6 @@ export default function CreateDog() {
                   <TextField
                     autoComplete="dog-age"
                     name="dogAge"
-                    required
                     fullWidth
                     id="dogAge"
                     label="Age"

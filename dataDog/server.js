@@ -55,9 +55,11 @@ app.post('/setFeed', async(req, res) => {
 //verifies login credentials and creates a cookie
 app.post('/login', async(req, res) => {
     const result = await dbOperation.getOwnerProfile(req.body);
+
     if (result.recordset[0] != null){
         res.cookie('email', result.recordset[0].Email);
         console.log(res.cookie);
+        console.log("-----------------------");
     } else {
         console.log("No user found");
         res.cookie('email', 'error - no email found');
