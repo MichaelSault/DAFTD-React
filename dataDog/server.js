@@ -2,43 +2,13 @@ const express = require('express'),
     dbOperation = require('./dbFiles/dbOperation'),
     cors = require('cors');
 
-const cookieParser = require("cookie-parser");
-const sessions = require('express-session');
-
 const API_PORT = process.env.PORT || 5000; 
 const app = express(); //starts the server
-
-//define one day in milliseconds
-const oneWeek = 1000 * 60 * 60 * 24 * 7;
-
-//session middleware
-app.use(sessions({
-    secret: "sneakydatadog", //will remove secret if I ever host publicly
-    saveUninitalized: true,
-    cookie: {maxAge: oneWeek},
-    resave: false,
-    path: '/login'
-}));
 
 //parsing the incoming data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors()); 
-
-//serving public file
-app.use(express.static(__dirname));
-
-//cookie parser middleware
-app.use(cookieParser());
-
-//a variable to save a session
-var session;
-
-//call to logout the user
-app.get('/logout',(req, res) => {
-    req.session.destroy();
-    res.redirect('/');
-});
 
 app.post('/getFeed', async(req, res) => {
     const result = await dbOperation.getFeedTime(req.body);
